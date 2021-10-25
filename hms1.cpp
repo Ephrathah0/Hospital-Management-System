@@ -1,9 +1,7 @@
 //HMSS hospital management system this c++ program implement different kind of services which is given in the Birhanu hospital .........
 /*The program will help the patient to register with out the help of third party and see doctors tip and full information this is in
 For doctor it is possible to enter tip and other patient requirement and to keep patient confidentiality doctor uses password.
-********************************* section C Groups 4  member name*********************************
-->Fatima Abayneh...0296/12                          ->Ephratah Wodajo..................0249/12                  ->Firdews Abrar.....0296/12
-->Gelila Workneh...0312/12                          ->Seble Samuel.....................1041/12*/
+
 
 #include <iostream>//input output stream.
 #include <string.h>//string library.

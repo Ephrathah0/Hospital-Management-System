@@ -1,7 +1,3 @@
-//HMSS hospital management system this c++ program implement different kind of services which is given in the Birhanu hospital .........
-/*The program will help the patient to register with out the help of third party and see doctors tip and full information this is in
-For doctor it is possible to enter tip and other patient requirement and to keep patient confidentiality doctor uses password.
-
 
 #include <iostream>//input output stream.
 #include <string.h>//string library.
@@ -12,7 +8,7 @@ For doctor it is possible to enter tip and other patient requirement and to keep
 
 using namespace std;
 
-
+//double existing;
 //structures
 
 struct dateofadd
@@ -80,22 +76,6 @@ string recommendation;
 string str1;
 int passcode;
 }d;
-//templates
-template<typename T1,typename U1,typename V1>
-struct Hospitals
-{
-T1 name_hos;
-T1 service;
-T1 name_doc;
-V1 sex;
-T1 specialst;
-T1 schedule_doc;
-T1 city_hos;
-T1 kfleketema_hos;
-U1 kebele_hos,wereda_hos;
-T1 email_hos;;
-T1 phone_hos;;
-};
 
 //function declaration
 
@@ -103,9 +83,9 @@ void Administrator();
 void menu();
 void patient();
 void newPatient();
-void oldPatient();
+void existingPatient();
 void inpatient();
-void edit();
+void display();
 void doctor();
 void hospital_information();
 void medicalTip();
@@ -127,14 +107,13 @@ return 0;
 //menu function definition it used to give different options for users that help him to fulfill his target
 //to call different function
 void menu(){
-char menu_option;
+char menu_option, existing;
 
     cout<<"\n\n\t\tHospital Management System\n"<<endl;
-    cout<<" \t\t\tOption [1]-For Administrator\n"<<endl;
-    cout<<" \t\t\tOption [2]-For patient \n"<<endl;
-    cout<<" \t\t\tOption [3]-For Doctor\n"<<endl;
-    cout<<" \t\t\tOption [4]-About the Hospital Management System\n"<<endl;
-    cout<<" \t\t\tOption [5]-exit"<<endl;
+    cout<<" \t\t\tOption [1]-For patient \n"<<endl;
+    cout<<" \t\t\tOption [2]-For Doctor\n"<<endl;
+    cout<<" \t\t\tOption [3]-About the Hospital Management System\n"<<endl;
+    cout<<" \t\t\tOption [4]-exit"<<endl;
 
 cout<<"\nEnter your choice from the option listed above: ";
 menu:
@@ -142,23 +121,20 @@ cin>>menu_option;
 
 
 switch(menu_option){
+
 case '1':
-    system("cls");
-    Administrator();
-    break;
-case '2':
     system("cls");
     patient();
     break;
-case '3':
+case '2':
     system("cls");
     doctor();
     break;
-case '4':
+case '3':
     system("cls");
    hospital_information();
     break;
-case '5':
+case '4':
     system("cls");
     exit(0);
     break;
@@ -177,9 +153,7 @@ cout<<"\nWelcome";
 
 cout<<"\n\tOption[1]For new patient registration"<<endl;
 cout<<"\n\tOption[2]for existing patient login"<<endl;
-cout<<"\n\tOption[3]for inpatient "<<endl;
-cout<<"\n\tOption[4]For editing information"<<endl;
-cout<<"\n\tOption[5]Back main menu"<<endl;
+cout<<"\n\tOption[3]Back main menu"<<endl;
 
 cout<<"\n\nEnter your option from listed above: ";
 enter:
@@ -194,19 +168,10 @@ case '1':
 
 case '2':
     system("cls");
-    oldPatient();//oldpatient function is being called
+   existingPatient();//oldpatient function is being called
     break;
 
- case '3':
-     system("cls");
-     inpatient();
-    break;
-
- case '4':
-     system("cls");
-     edit();
-    break;
-case '5':
+  case '3':
      system("cls");
      menu();//the system return back to menu part
     break;
@@ -222,7 +187,7 @@ void newPatient(){
 
 int response,inpsex=0,inblood=0;
 appoint ap;
-Hospitals<string,int,char> Hos;
+
   ofstream ofile("patient.txt",ios::app);
 if (!ofile.is_open())
     {
@@ -363,7 +328,7 @@ cout<<"\n\Appointment : "<<endl;
 cout<<"\nHere is the doctors schedule "<<endl;
    ifstream file("hospital.txt");
 
-cout<<"\nDoctor's name: "<<Hos.name_doc<<"\nSex: "<<Hos.sex<<"\nSpeciality name: "<<Hos.specialst<<"\nSchedule: "<<Hos.schedule_doc;
+//cout<<"\nDoctor's name: "<<Hos.name_doc<<"\nSex: "<<Hos.sex<<"\nSpeciality name: "<<Hos.specialst<<"\nSchedule: "<<Hos.schedule_doc;
     cout<<" \n\nNow you can see when the doctor is available and choose your appointment."<<endl;
 
     cout<<"\n The appointment date day: ";
@@ -376,7 +341,6 @@ cout<<"\nDoctor's name: "<<Hos.name_doc<<"\nSex: "<<Hos.sex<<"\nSpeciality name:
     cin>>ap.yy;
 
     cout<<"\n\nYou have successfully book an appointment : "<<endl;
-    cout<<"***Don't forget your appointment and be punctual!!!**"<<endl;
 
 
 system("cls");
@@ -397,9 +361,10 @@ cout<<"\nThank you the information have been registered\n";
         cout<<"passwords doesn't match please try again : ";
         goto tryagain;
     }
-
+ ofile<<"_____________________________________________________________________________"<<endl;
 
     ofile<<"\n\Personal Information : "<<endl;
+    ofile<<"_________________________"<<endl;
 
      ofile<<"Full  name : "<<p[i].name;
 
@@ -439,6 +404,7 @@ else if(p[i+c].bmi>=30 && p[i].bmi<=39.9)
     else
     ofile<< " ";
 ofile<<"\nMedical history : \n";
+ofile<<"___________________"<<endl;
 
 ofile<<"\nTypes of medicine taken(if any): "<<p[i].medicine_taken;
 
@@ -452,8 +418,9 @@ ofile<<"\nSurgery: "<<p[i].surgeries;
 ofile<<"\nSymptoms : "<<p[i].symptoms;
 
 ofile<<"\n\Appointment : ";
-ofile<<"\nDoctor's name: "<<Hos.name_doc<<"\nSex: "<<Hos.sex<<"\nSpeciality name: "<<Hos.specialst<<"\nSchedule: "<<Hos.schedule_doc;
+//ofile<<"\nDoctor's name: "<<Hos.name_doc<<"\nSex: "<<Hos.sex<<"\nSpeciality name: "<<Hos.specialst<<"\nSchedule: "<<Hos.schedule_doc;
     ofile<<"\n Appointment date: "<<ap.dd<<"/"<<ap.mm<<"/"<<ap.yy;
+     ofile<<"_____________________________________________________________________________"<<endl;
 
     p[i+c].id=id;
     c++;
@@ -471,55 +438,25 @@ ofile<<"\nDoctor's name: "<<Hos.name_doc<<"\nSex: "<<Hos.sex<<"\nSpeciality name
 
 }
 
-//display registered patients information
-void display(){
-string ename;
-int response;
-    ifstream ifile("patient.txt");
-    if (!ifile.is_open())
-    {
-    cout<<"could not open file";
-    }
-else
-    {
- cout<<"..................Well come doctor firdews please fill the following information according to patients information............. "<<endl;
-    cout<<"\n\n===============patient information stored in table================="<<endl;
-
-    while(!ifile.eof()){
-
-cout<<"====================================================================================================================================================="<<endl;
-cout<<"dd"<<"\t"<<"mm"<<"\t"<<"yy"<<"\t"<<"na"<<"\t"<<"cy"<<"\t"<<"k/k"<<"\t"<<"keb"<<"\t"<<"wer"<<"\t";
-cout<<"cont"<<"\t"<<"brdy"<<"\t"<<"brmon"<<"\t"<<"btyr"<<"\t"<<"age"<<"\t"<<"sex"<<"\t"<<"bld"<<"\t";
-cout<<"bmi"<<"\t"<<"medt"<<"\t"<<"ill"<<"\t"<<"surg"<<"\t"<<"syp"<<"\t"<<"pass1"<<"\t"<<"pass2"<<endl;
-cout<<"======================================================================================================================================================"<<endl;
-    while(getline(ifile,ename)){
-        cout<<ename;cout<<endl;}
-
-    ifile.close();
-    }
-
-     do{
-    cout<<"\npress 1 to go back: ";
-    cin>>response;
-    }while(response!=1);
-     system("cls");
-     doctor();//if the user presses 1 it return back to doctor function
-
-}}
-//login if already registered
-void oldPatient(){
+void existingPatient(){
 
 int response;
 string pass;
+int existing;
+
     cout<<"\nEnter passcode";
     cin>>pass;//asks the password that the patient have entered when he/she was registering
 
     for(int i = 0; i<c; i++){
     if( pass==p[i].passcode && pass==p[i].passcode2 ){
 
-        cout<<"patient ID: ";
-        cout<<p[i].id;
-cout<<"================================================================"<<endl;
+    cout<<" \t\t\tOption [1]-Viewing Information \n"<<endl;
+    cout<<" \t\t\tOption [2]-Editing Information\n"<<endl;
+    cout<<" \t\t\tOption [3]-exit"<<endl;
+    cin>>existing;
+      if (existing==1){
+
+cout<<"Patient personal and medical informations"<<endl;
 cout<<"\nPatient name :            "<<setw (32)<< left<<p[i].name;
 
 cout<<"\nCity name:              "<<setw (32)<< left<<p[i].city;
@@ -566,62 +503,11 @@ cout<<"\n\n\n================================================================"<<
         cout<<"doctor prescription for you: ";
         cout<<p[i].prescription<<endl;
         cout<<"\n";
+         menu();
+
     }
-    else cout<<"password not found ";
-    }
-
-    do{
-    cout<<"\npress 1 to go back: ";
-    cin>>response;
-    }while(response!=1);
-     system("cls");
-     patient();//if the user press 1 it returns back to patient function
-
-}
-void inpatient()
-{
-    int response;
-    string pass;
-     int days[100],cost[100];
-     cout<<"\nEnter passcode";
-    cin>>pass;//asks the password that the patient have entered when he/she was registering
-
-
-for(int i = 0; i<c; i++){
-    if( pass==p[i].passcode&&pass==p[i].passcode2 ){
-
-
-    cout<< "Enter the number of days you have Stayed in the hospital : ";
-
-cin>>p[i].days;
-cout<<"The severity of illness is : " ;
-
-if(p[i].days<=1)
-    cout<<" Minor"<< endl;
-
-    else if(p[i].days<=3)
-    cout<<" Moderate"<< endl;
-
-        else if(p[i].days<=6)
-        cout<<" Major"<< endl;
-
-        else
-        cout<<" Extreme"<< endl;
-        p[i].cost= 200*p[i].days;
-
-   cout<<"The total cost for "<<p[i].days<<" days is : "<<p[i].cost;
- }}
-    do{
-    cout<<"\npress 1 to go back: ";
-    cin>>response;
-    }while(response!=1);
-     system("cls");
-     patient();
-}
-//function to edit information
-void edit()
-{
-    struct edit{
+    else if(existing==2){
+     struct edit{
 string a,b,c,d,e,f,g,h;
 int j,k,l,n,o,p,q,r;
 char s,t,m;
@@ -633,66 +519,25 @@ char s,t,m;
         string pass;
 
 
-
-
-cout<<"\nenter passcode";
-    cin>>pass;//asks the password that the patient have entered when he/she was registering
-
-
-
-for(int i = 0; i<c; i++){
-    if( pass==p[i].passcode&&pass==p[i].passcode2 ){
-cout<<"================================================================"<<endl;
-cout<<"\nPatient name :            "<<setw (32)<< left<<p[i].name;
-
-cout<<"\nCity name:              "<<setw (32)<< left<<p[i].city;
-
-cout<<"\nKfleketema :            "<<setw (32)<< left<<p[i].kfleketema;
-cout<<"\nKebele  :               "<<setw (32)<< left<<p[i].kebele;
-
-cout<<"\nWereda:                 "<<setw (32)<< left<<p[i].wereda;
-cout<<"\nContact Number :        "<<setw (32)<< left<<p[i].contact;
-
-cout<<"\nDate Of Birth :         "<<setw (32)<< left<<p[i].date;
-cout<<"\nMonth Of Birth :        "<<setw (32)<< left<<p[i].month;
-
-cout<<"\nYear Of Birth :         "<<setw (32)<< left<<p[i].year;
-cout<<"\nAge :                   "<<setw (32)<< left<<p[i].age;
-
-cout<<"\nSex :                   "<<setw (32)<< left<<p[i].sex;
-cout<<"\nBlood Group :           "<<setw (32)<< left<<p[i].blood;
-cout<<"\nMedicine taken:         "<<setw (30)<< left<<p[i].medicine_taken<<endl;
-
-cout<<"Name of illnesses:      "<<setw (30)<< left<<p[i].illnesses<<endl;
-
-cout<<"Type of surgeries:      "<<setw (30)<< left<<p[i].surgeries<<endl;
-cout<<"Type of allergic:       "<<setw (30)<< left<<p[i].allergies<<endl;
-cout<<"symptoms experienced:   "<<setw (30)<< left<<p[i].symptoms<<endl;
-
-cout<<"\n\n\n================================================================"<<endl;
-cout<<"\n\n\n================================================================"<<endl;
-cout<<"\n\n\n================================================================"<<endl;
-
-cout<< "which statement do u want to edit"<<endl;
-cout<< "choose 1 if you want to edit name"<<endl;
-cout<< "choose 2 if you want to edit City name"<<endl;
-cout<< "choose 3 if you want to edit Kfleketema"<<endl;
-cout<< "choose 4 if you want to edit Kebele"<<endl;
-cout<< "choose 5 if you want to edit Wereda"<<endl;
-cout<< "choose 6 if you want to edit Contact Number"<<endl;
-cout<< "choose 7 if you want to edit Date Of Birth"<<endl;
-cout<< "choose 8 if you want to edit month Of Birth"<<endl;
-cout<< "choose 9 if you want to edit year Of Birth"<<endl;
-cout<< "choose 11 if you want to edit age"<<endl;
-cout<< "choose 12 if you want to edit Sex "<<endl;
-cout<< "choose 13 if you want to edit Blood Group"<<endl;
-cout<< "choose 14 if you want to edit Medicine taken"<<endl;
-cout<< "choose 15 if you want to edit Number of medicine"<<endl;
-cout<< "choose 16 if you want to edit Name of illnesses"<<endl;
-cout<< "choose 17 if you want to edit Type of surgeries"<<endl;
-cout<< "choose 18 if you want to edit Number of surgeries"<<endl;
-cout<< "choose 19 if you want to edit Type of allergic "<<endl;
-cout<< "choose 20 if you want to edit symptoms experienced"<<endl;
+cout<< "choose 1 to edit name"<<endl;
+cout<< "choose 2 to edit City name"<<endl;
+cout<< "choose 3 to editKfleketema"<<endl;
+cout<< "choose 4 to edit Kebele"<<endl;
+cout<< "choose 5 to edit Wereda"<<endl;
+cout<< "choose 6 to edit Contact Number"<<endl;
+cout<< "choose 7 to edit Date Of Birth"<<endl;
+cout<< "choose 8 to edit month Of Birth"<<endl;
+cout<< "choose 9 to edit year Of Birth"<<endl;
+cout<< "choose 11 to edit age"<<endl;
+cout<< "choose 12 to edit Sex "<<endl;
+cout<< "choose 13 to edit Blood Group"<<endl;
+cout<< "choose 14 to edit Medicine taken"<<endl;
+cout<< "choose 15 to edit Number of medicine"<<endl;
+cout<< "choose 16 to edit Name of illnesses"<<endl;
+cout<< "choose 17 to edit Type of surgeries"<<endl;
+cout<< "choose 18 to edit Number of surgeries"<<endl;
+cout<< "choose 19 to edit Type of allergic "<<endl;
+cout<< "choose 20 to edit symptoms experienced"<<endl;
 enter:
 cin>>choose;
     switch(choose)
@@ -804,58 +649,15 @@ cin>>choose;
     default:
         cout<< "you have entered a wrong number please try again"<<endl;
         goto enter;
-    }
-    }}
-    do{
-    cout<<"\npress 1 to go back: ";
-    cin>>response;
-    }while(response!=1);
-     system("cls");
-     patient();
-
-}
-//function to delete information
-void Administrator()
-{
-       int response,x=1234;
-int pass;
-    cout<<"\nenter passcode";
-    cin>>pass;
- if(pass==x){
-int pidd;
-bool deletes=false;
-char cho;
-cout<<"For administrator side please enter the id of patient you want to clear(delete) information : ";
-cin>>pidd;
-fstream fp1;
-  fp1.open("patient.txt",ios::in|ios::out);
-  fstream fp2;
-  fp2.open("Temp.txt",ios::out);
-  fp1.seekg(0,ios::beg);
-  int i;
-  while(fp1.read((char*)&p,sizeof(patient_info)))
-  {
-    if(pidd!=p[i].id)
-    {
-      fp2.write((char*)&p,sizeof(patient_info));
-    }
-  }
-  fp2.close();
-  fp1.close();
-  remove("patient.txt");
-  rename("Temp.txt","patient.txt");
-  cout<<endl<<endl<<"\tRecord Deleted...";
-  do{
-    cout<<"\npress 1 to go back: ";
-    cin>>response;
-    }while(response!=1);
-     system("cls");
-     menu();
- }
+        break;
+    }    }
+    else {
+    cout<<"wrong input. Try again"<<endl;
+   menu();
+   }}
 
 
-}
-
+}}
 //function definition
 //only applicable for doctors
 void doctor(){
@@ -900,6 +702,20 @@ case 3:
      doctor();
  }
 //stored medical tip from doctors
+void display(){
+int x, sum=0;
+ifstream infile;
+infile.open("/home/ephrathah/Documents/cpp/patient.txt");
+if (!infile){
+cerr<<"unable to open file";
+exit(1);}
+while(infile>>x){
+sum=sum+x;}
+
+
+infile.close();
+
+}
 void medicalTip(){
 
     int response;
@@ -974,41 +790,23 @@ cout<<"\n";
 //hospitals information is stored
 void hospital_information()
 {
- ofstream file("hospital.txt");
 
-Hospitals<string,int,char> Hos;
-Hos.name_hos={"Birhanu centralized hospital"};
-Hos.service={"\n - short-term hospitalization\n - emergency room services\n - general and specialty surgical services\n - x-ray radiology services \n - laboratory services\n - blood services."};
-Hos.name_doc={"DR.Firdews Abrar"};
-Hos.sex='f';
-Hos.specialst={"General Doctor"};
-Hos.schedule_doc={"(Monday-Thursday)=4:00am-11:30pm,(Friday and Saturday)=2:30am-6:00am"};
-Hos.city_hos={"Addiss Ababa"};
-Hos.kfleketema_hos={"Kolfe Keranyo"};
-Hos.wereda_hos=05;
-Hos.kebele_hos=01;
-Hos.email_hos={"birhanu_centrhos@gmail.com"};
-Hos.phone_hos={"011-345-654"};
-file<<Hos.name_hos<<Hos.service<<Hos.name_doc<<Hos.sex<<Hos.specialst<<Hos.schedule_doc<<Hos.city_hos<<Hos.kfleketema_hos<<Hos.wereda_hos<<Hos.kebele_hos<<Hos.email_hos<<Hos.phone_hos;
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-file.close();
-cout<<"Name of Hospital: "<<Hos.name_hos<<endl;
-cout<<"\n->Service that "<<Hos.name_hos<<" provide: "<<endl<<Hos.service<<endl;
-cout<<"\n General information:"<<"\n ->President  Peter L. Slavin,\n-> Total certified beds  907\n-> Total employees (part- and full-time)  23,302\n-> Total operating revenue  $612 million"<<endl;
+ cout<<"\t\t\t\tThe Good Life Hospital\n"<<endl;
+
+cout<< "Founded in 1948, we've always been at you service, our delight"<<endl;
+cout<<"Our Services: \n - short-term hospitalization\n - emergency room services\n - general and specialty surgical services\n - x-ray radiology services \n - laboratory services\n - blood services.";
+cout<<"\nA stuff led DR.Firdews Abrar for all your needs";
+cout<<"\nAddress: Kolfe Keranyo, wereda 05 house number 08"<<endl;
+cout<<"Email : birhanu_centrhos@gmail.com/n Phone Number : 011-345-654"<<endl;
+cout<<"\n General information:"<<"\n ->President  Firdews Abrar,\n-> Total certified beds  907\n-> Total employees (part- and full-time)  23,302\n-> Total operating revenue  $612 million"<<endl;
 cout<<"\nPatient and surgical statistics: "<<"\n #Total inpatients  47,250\n #Average length of stay  5.82 days\n #Admissions to observe  7,978\n #Total surgical cases  36,701\n #Inpatient surgical cases  19,233\n #Ambulatory surgical cases  17,468"<<endl;
 cout<<"\n General information:"<<"\n ->President  Peter L. Slavin,\n-> Total certified beds  907\n-> Total employees (part- and full-time)  23,302\n-> Total operating revenue  $612 million"<<endl;
 cout<<"\nPatient and surgical statistics: "<<"\n #Total inpatients  47,250\n #Average length of stay  5.82 days\n #Admissions to observe  7,978\n #Total surgical cases  36,701\n #Inpatient surgical cases  19,233\n #Ambulatory surgical cases  17,468"<<endl;
-cout<<"\nDoctors information in "<<Hos.name_hos<<endl;
-cout<<"______________________________________________________"<<endl;
-
-cout<<"\nDoctor's name: "<<Hos.name_doc<<"\nSex: "<<Hos.sex<<"\nSpeciality name: "<<Hos.specialst<<"\nSchedule: "<<Hos.schedule_doc;
-cout<<"\n\n________Hospitals Address_____________"<<endl;
-cout<<"\nHispitals city: "<<Hos.city_hos<<"\n"<<" KfleKetema: "<<Hos.kfleketema_hos<<endl;
-cout<<"kebele: "<<Hos.kebele_hos<<"\n"<<" wereda: "<<Hos.wereda_hos<<endl;
-cout<<"Hispitals  emailaddress: "<<Hos.email_hos<<"\n"<<" phone number: "<<Hos.phone_hos<<endl;
-cout<<"......................................................"<<endl;
 system("pause");
 system("cls");
 menu();
 
 }
+
+
+

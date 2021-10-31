@@ -1,4 +1,4 @@
-# Hospital-Management-System
+# Hospital-Management-System with file
 A centralized hospital management system is a type of hospital management system that makes information accessible and easy to administer. A centralized hospital management system is very important because while curbing data loss and fraud problems. it :   
    
     • Saves time and energy
